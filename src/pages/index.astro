@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Dashboard from '../components/Dashboard.astro';
+import SavingsSimulator from '../components/SavingsSimulator';
+import {getHomeContent, getInsights} from '../lib/content';
+const home = await getHomeContent();
+const insights = (await getInsights()).slice(0,3);
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title={home.seoTitle} description={home.seoDescription}>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <div class="hero-topline"><span class="pulse-dot"></span>{home.eyebrow}</div>
+        <h1>{home.headline}</h1>
+        <p>{home.subheadline}</p>
+        <div class="hero-cta"><a class="btn btn-lime" href={`${base}approach/`}>{home.primaryCtaLabel}<span aria-hidden="true">↗</span></a><a class="text-link hero-text-link" href={`${base}solutions/`}>Discover the platform <span aria-hidden="true">↗</span></a></div>
+        <div class="hero-note"><span class="hero-note-line"></span><span>DESIGNED FOR A MORE INTELLIGENT TOMORROW</span></div>
+      </div>
+      <div class="hero-orbit" aria-hidden="true"><div class="orbit-ring orbit-1"></div><div class="orbit-ring orbit-2"></div><div class="orbit-ring orbit-3"></div><div class="orbit-core"></div><div class="orbit-spark spark-one">✳</div><div class="orbit-spark spark-two">+</div></div>
+    </div>
+    <div class="container showcase-wrapper"><div class="showcase-topline"><span>THE BIGGER PICTURE, AT A GLANCE</span><span>01 / 04</span></div><Dashboard /></div>
+    <div class="hero-bottom-glow" aria-hidden="true"></div>
+  </section>
+  <section class="section philosophy">
+    <div class="container philosophy-layout">
+      <div class="eyebrow-col"><span class="number-icon">01</span><span class="eyebrow dark">THE OPPORTUNITY</span></div>
+      <div><h2>{home.spotlightTitle}</h2><p class="large-copy">{home.spotlightCopy}</p><a href={`${base}approach/`} class="text-link">How we think about energy <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </section>
+  <section class="section capabilities">
+    <div class="container">
+      <div class="section-head"><div><span class="eyebrow dark">WHAT MATTERS MOST</span><h2>Everything in focus.<br/><em>Nothing in the way.</em></h2></div><p>Make room for the work that matters. Bring complex information together and put it to work for your team.</p></div>
+      <div class="capability-grid">
+        <article class="capability-card one"><div class="cap-icon icon-lines" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M8 52 22 34l13 8L49 20l15 6"/><circle cx="8" cy="52" r="4"/><circle cx="22" cy="34" r="4"/><circle cx="35" cy="42" r="4"/><circle cx="49" cy="20" r="4"/><circle cx="64" cy="26" r="4"/></svg></div><span class="card-index">01 / VISIBILITY</span><h3>See the full picture.</h3><p>Understand performance at a glance, then explore the details behind every signal.</p><a href={`${base}solutions/`} aria-label="Learn about visibility">↗</a></article>
+        <article class="capability-card two"><div class="cap-icon icon-grid" aria-hidden="true"><div class="grid-tile t1"></div><div class="grid-tile t2"></div><div class="grid-tile t3"></div><div class="grid-tile t4"></div></div><span class="card-index">02 / FORESIGHT</span><h3>Stay one step ahead.</h3><p>Give emerging patterns context and build confidence in what comes next.</p><a href={`${base}solutions/`} aria-label="Learn about foresight">↗</a></article>
+        <article class="capability-card three"><div class="cap-icon icon-circle" aria-hidden="true"><div class="circle-outer"><span>↗</span></div></div><span class="card-index">03 / ACTION</span><h3>Move with clarity.</h3><p>Turn insight into the next best action with calm, purposeful workflows.</p><a href={`${base}solutions/`} aria-label="Learn about action">↗</a></article>
+      </div>
+    </div>
+  </section>
+  <section class="section interactive-section">
+    <div class="container interactive-grid">
+      <div class="interactive-copy"><span class="eyebrow dark">FROM INFORMATION TO ACTION</span><h2>Better decisions start with a better question.</h2><p>Explore how small improvements add up. Our interactive example demonstrates the kind of clear, useful experience we believe operational software should offer.</p><div class="thoughtful-list"><div><span>✓</span> Transparent assumptions</div><div><span>✓</span> Immediate feedback</div><div><span>✓</span> Human-first interactions</div></div></div>
+      <SavingsSimulator client:visible />
+    </div>
+  </section>
+  <section class="section insight-section">
+    <div class="container"><div class="insight-head"><div><span class="eyebrow dark">PERSPECTIVES</span><h2>Ideas worth<br/><em>exploring.</em></h2></div><a href={`${base}insights/`} class="text-link">See all insights <span aria-hidden="true">↗</span></a></div>
+      <div class="insight-grid">{insights.map((entry, i) => <a class="insight-card" href={`${base}insights/${entry.slug}/`}><div class={`insight-art art-${i+1}`}><div class="art-rings"></div><span class="art-number">0{i+1}</span></div><div class="insight-meta"><span>{entry.category}</span><time datetime={entry.publishedAt}>{new Date(entry.publishedAt).toLocaleDateString('en-US',{month:'short',year:'numeric'})}</time></div><h3>{entry.title}</h3><span class="read-link">Read perspective ↗</span></a>)}</div>
+    </div>
+  </section>
+  <section class="closing-cta"><div class="container closing-inner"><span class="eyebrow">THE FUTURE IS A TEAM EFFORT</span><h2>Let's make better<br/>possible<span>.</span></h2><a href={`${base}contact/`} class="btn btn-lime">Start a conversation ↗</a><div class="closing-radial" aria-hidden="true"></div></div></section>
+</BaseLayout>

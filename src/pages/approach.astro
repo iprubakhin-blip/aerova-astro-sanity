@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<BaseLayout title="Our Approach | AEROVA" description="A thoughtful, human-first approach to energy intelligence. Portfolio demonstration of a design-led Astro website.">
+  <section class="subhero"><div class="container"><span class="eyebrow">OUR APPROACH</span><h1>Technology should<br/><em>feel like clarity.</em></h1><p>Less friction, more understanding. We believe the best tools help teams work with confidence.</p></div></section>
+  <section class="section page-section"><div class="container"><div class="story-grid"><div><span class="eyebrow dark">OUR DESIGN PRINCIPLES</span><h2>Built around the questions people actually ask.</h2></div><div class="story-copy"><p>What changed? Why did it happen? What should we do next? These questions form the foundation of AEROVA's concept experience.</p><p>Instead of adding another layer of noise, we imagine one coherent workflow: understandable data, useful context, and meaningful next steps.</p><p class="portfolio-note">AEROVA is a fictional product identity created as a portfolio case study. All product screens, content, numbers and scenarios are illustrative.</p></div></div>
+  <div class="principle-grid"><div><span>01</span><h3>Calm over clutter</h3><p>Prioritize what's important using clear hierarchy, contrast and accessible patterns.</p></div><div><span>02</span><h3>Insight over volume</h3><p>Give data context, make it understandable, and present it at the right moment.</p></div><div><span>03</span><h3>People over process</h3><p>Use technology to support decisions and leave room for judgment and creativity.</p></div></div></div></section>
+  <section class="closing-cta"><div class="container closing-inner"><span class="eyebrow">KEEP EXPLORING</span><h2>Curiosity creates<br/>progress<span>.</span></h2><a class="btn btn-lime" href={`${base}insights/`}>Read our perspectives ↗</a></div></section>
+</BaseLayout>

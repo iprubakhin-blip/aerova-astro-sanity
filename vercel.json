@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/old-home", "destination": "/", "permanent": true },
+    { "source": "/old-insights", "destination": "/insights/", "permanent": true }
+  ]
+}

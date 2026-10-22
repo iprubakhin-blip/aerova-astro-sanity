@@ -1,0 +1,39 @@
+---
+const base = import.meta.env.BASE_URL;
+const links = [
+  {href: `${base}solutions/`, label: 'Solutions'},
+  {href: `${base}approach/`, label: 'Our approach'},
+  {href: `${base}insights/`, label: 'Insights'},
+];
+---
+<header class="site-header">
+  <div class="container nav-inner">
+    <a href={base} class="wordmark" aria-label="AEROVA home">aerova<span>.</span></a>
+    <nav aria-label="Primary navigation" class="desktop-nav">
+      {links.map(({href,label}) => <a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}>{label}</a>)}
+    </nav>
+    <div class="nav-actions">
+      <a href={`${base}contact/`} class="nav-contact">Let's talk <span aria-hidden="true">↗</span></a>
+      <button class="mobile-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu" aria-label="Mobile navigation" hidden>
+    {links.map(({href,label}) => <a href={href}>{label}</a>)}
+    <a href={`${base}contact/`}>Let's talk ↗</a>
+  </nav>
+</header>
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.mobile-toggle');
+  const menu = document.querySelector<HTMLElement>('#mobile-menu');
+  button?.addEventListener('click', () => {
+    if (!menu) return;
+    const open = button.getAttribute('aria-expanded') !== 'true';
+    button.setAttribute('aria-expanded', String(open));
+    menu.hidden = !open;
+  });
+  menu?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    if (button && menu) { button.setAttribute('aria-expanded','false'); menu.hidden = true; }
+  }));
+</script>

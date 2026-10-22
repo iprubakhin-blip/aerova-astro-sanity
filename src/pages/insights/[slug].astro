@@ -1,0 +1,15 @@
+---
+import type {GetStaticPaths} from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {getInsights, type Insight} from '../../lib/content';
+export const getStaticPaths = (async () => {
+  const insights = await getInsights();
+  return insights.map((entry) => ({params: {slug: entry.slug}, props: {entry}}));
+}) satisfies GetStaticPaths;
+const {entry} = Astro.props as {entry: Insight};
+const base = import.meta.env.BASE_URL;
+const date = new Date(entry.publishedAt).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+---
+<BaseLayout title={`${entry.title} | AEROVA`} description={entry.seoDescription || entry.excerpt}>
+  <article class="article-wrap container"><a class="article-back" href={`${base}insights/`}>← All insights</a><div class="article-meta"><span class="eyebrow dark">{entry.category}</span><time datetime={entry.publishedAt}>{date}</time></div><h1>{entry.title}</h1><p class="article-dek">{entry.excerpt}</p><div class="article-banner"><span>AEROVA / PERSPECTIVES</span><div class="article-circle"></div></div><div class="article-body">{entry.body?.map((block)=> <p>{block.children?.map(child=>child.text).join(' ')}</p>)}<p class="portfolio-note">This is illustrative editorial content for a fictional portfolio brand.</p></div><a class="text-link" href={`${base}insights/`}>← Back to all perspectives</a></article>
+</BaseLayout>

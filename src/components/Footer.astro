@@ -1,0 +1,18 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer-main">
+      <div>
+        <a href={base} class="wordmark footer-logo">aerova<span>.</span></a>
+        <p>Better questions.<br/>Brighter energy futures.</p>
+      </div>
+      <div class="footer-links">
+        <div><span class="footer-caption">EXPLORE</span><a href={`${base}solutions/`}>Solutions</a><a href={`${base}approach/`}>Our approach</a><a href={`${base}insights/`}>Insights</a></div>
+        <div><span class="footer-caption">CONNECT</span><a href={`${base}contact/`}>Contact</a><a href="https://github.com/iprubakhin-blip" target="_blank" rel="noopener noreferrer">Developer GitHub ↗</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© {new Date().getFullYear()} AEROVA — Portfolio concept, not a commercial service.</span><span>Built with Astro · Sanity · React</span></div>
+  </div>
+</footer>
